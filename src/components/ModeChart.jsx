@@ -11,12 +11,18 @@ import {
 } from "recharts";
 import { data } from "../data";
 import { meanPv, meanUv, stdPv, stdUv } from "../utils/getMeanValues";
+import { calcZScores } from "../utils/calcZScores";
+
+const dataWithPvZ = calcZScores(data, "pv", meanPv, stdPv);
+const dataWithPvAndUvZ = calcZScores(dataWithPvZ, "uv", meanUv, stdUv);
 
 console.log("Средняя pv", meanPv);
 console.log("Средняя uv", meanUv);
 
 console.log("Стандартное отклонение по Pv", stdPv);
 console.log("Стандартное отклонение по Uv", stdUv);
+
+console.log("Z-Scores", dataWithPvAndUvZ);
 
 export default class ModeChart extends PureComponent {
   static demoUrl =
