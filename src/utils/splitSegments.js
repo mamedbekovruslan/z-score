@@ -1,27 +1,28 @@
-export const splitByZScore = (data, key) => {
+export const splitSegments = (data, key) => {
   const segments = [];
   let currentSegment = [];
   let lastIsAnomalous = null;
 
-  data.forEach((point, index) => {
+  data.forEach((point) => {
     const isAnomalous = Math.abs(point[`${key}Z`]) > 1;
 
     if (lastIsAnomalous === null || lastIsAnomalous === isAnomalous) {
       currentSegment.push(point);
     } else {
-      segments.push({ data: currentSegment, isAnomalous: lastIsAnomalous });
-      currentSegment = [];
-      if (index > 0) {
-        currentSegment.push(data[index - 1]);
+      if (currentSegment.length) {
+        segments.push({
+          data: [...currentSegment],
+          isAnomalous: lastIsAnomalous,
+        });
       }
-      currentSegment.push(point);
+      currentSegment = [point];
     }
 
     lastIsAnomalous = isAnomalous;
   });
 
   if (currentSegment.length) {
-    segments.push({ data: currentSegment, isAnomalous: lastIsAnomalous });
+    segments.push({ data: [...currentSegment], isAnomalous: lastIsAnomalous });
   }
 
   return segments;

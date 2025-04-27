@@ -9,6 +9,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+
 import { data } from "../data";
 import { meanPv, meanUv, stdPv, stdUv } from "../utils/getMeanValues";
 import { calcZScores } from "../utils/calcZScores";
@@ -16,31 +17,13 @@ import { calcZScores } from "../utils/calcZScores";
 const dataWithPvZ = calcZScores(data, "pv", meanPv, stdPv);
 const dataWithPvAndUvZ = calcZScores(dataWithPvZ, "uv", meanUv, stdUv);
 
-console.log("Средняя pv", meanPv);
-console.log("Средняя uv", meanUv);
-
-console.log("Стандартное отклонение по Pv", stdPv);
-console.log("Стандартное отклонение по Uv", stdUv);
-
-console.log("Z-Scores", dataWithPvAndUvZ);
-
 export default class ModeChart extends PureComponent {
-  static demoUrl =
-    "https://codesandbox.io/p/sandbox/line-chart-width-xaxis-padding-8v7952";
-
   render() {
     return (
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height={400}>
         <LineChart
-          width={500}
-          height={300}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
+          data={dataWithPvAndUvZ}
+          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
@@ -51,9 +34,42 @@ export default class ModeChart extends PureComponent {
             type="monotone"
             dataKey="pv"
             stroke="#8884d8"
-            activeDot={{ r: 8 }}
+            connectNulls
+            dot={{ r: 4 }}
+            isAnimationActive={false}
+            strokeDasharray="0"
+            strokeOpacity={1}
           />
-          <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+          <Line
+            type="monotone"
+            dataKey={(d) => (Math.abs(d.pvZ) > 1 ? d.pv : null)}
+            stroke="red"
+            connectNulls
+            dot={{ r: 4 }}
+            isAnimationActive={false}
+            strokeDasharray="0"
+            strokeOpacity={1}
+          />
+          <Line
+            type="monotone"
+            dataKey="uv"
+            stroke="#82ca9d"
+            connectNulls
+            dot={{ r: 4 }}
+            isAnimationActive={false}
+            strokeDasharray="0"
+            strokeOpacity={1}
+          />
+          <Line
+            type="monotone"
+            dataKey={(d) => (Math.abs(d.uvZ) > 1 ? d.uv : null)}
+            stroke="red"
+            connectNulls
+            dot={{ r: 4 }}
+            isAnimationActive={false}
+            strokeDasharray="0"
+            strokeOpacity={1}
+          />
         </LineChart>
       </ResponsiveContainer>
     );
