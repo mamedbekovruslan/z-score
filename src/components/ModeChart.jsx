@@ -14,15 +14,17 @@ import { data } from "../data";
 import { meanPv, meanUv, stdPv, stdUv } from "../utils/getMeanValues";
 import { calcZScores } from "../utils/calcZScores";
 
-const dataWithPvZ = calcZScores(data, "pv", meanPv, stdPv);
-const dataWithPvAndUvZ = calcZScores(dataWithPvZ, "uv", meanUv, stdUv);
+const dataWithZScores = calcZScores(data, [
+  { key: "pv", mean: meanPv, std: stdPv },
+  { key: "uv", mean: meanUv, std: stdUv },
+]);
 
 export default class ModeChart extends PureComponent {
   render() {
     return (
       <ResponsiveContainer width="100%" height={400}>
         <LineChart
-          data={dataWithPvAndUvZ}
+          data={dataWithZScores}
           margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
