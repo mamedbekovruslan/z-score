@@ -33,7 +33,6 @@ export default class ModeChart extends PureComponent {
           <Tooltip />
           <Legend />
           <Line
-            type="monotone"
             dataKey="pv"
             stroke="#8884d8"
             connectNulls
@@ -43,7 +42,6 @@ export default class ModeChart extends PureComponent {
             strokeOpacity={1}
           />
           <Line
-            type="monotone"
             dataKey="pvRed"
             stroke="red"
             dot={{ r: 4 }}
@@ -52,7 +50,6 @@ export default class ModeChart extends PureComponent {
             strokeOpacity={1}
           />
           <Line
-            type="monotone"
             dataKey="uv"
             stroke="#82ca9d"
             connectNulls
@@ -62,7 +59,6 @@ export default class ModeChart extends PureComponent {
             strokeOpacity={1}
           />
           <Line
-            type="monotone"
             dataKey="uvRed"
             stroke="red"
             dot={{ r: 4 }}
