@@ -46,7 +46,6 @@ export default class ModeChart extends PureComponent {
             type="monotone"
             dataKey={(d) => (Math.abs(d.pvZ) > 1 ? d.pv : null)}
             stroke="red"
-            connectNulls
             dot={{ r: 4 }}
             isAnimationActive={false}
             strokeDasharray="0"
@@ -66,7 +65,6 @@ export default class ModeChart extends PureComponent {
             type="monotone"
             dataKey={(d) => (Math.abs(d.uvZ) > 1 ? d.uv : null)}
             stroke="red"
-            connectNulls
             dot={{ r: 4 }}
             isAnimationActive={false}
             strokeDasharray="0"
