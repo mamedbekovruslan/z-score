@@ -1,12 +1,35 @@
-# React + Vite
+# 📊 Z-Score Visualizer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Интерактивное приложение на React + Recharts, которое визуализирует временные ряды (`pv`, `uv`) и автоматически выделяет **аномальные значения** по Z-оценке (z-score).
 
-Currently, two official plugins are available:
+## 📌 Описание
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Проект основан на примере [Recharts SimpleLineChart](http://recharts.org/en-US/examples/SimpleLineChart) и расширен логикой аномалий:
 
-## Expanding the ESLint configuration
+- Z-оценка (`z-score`) вычисляется для каждого значения `pv` и `uv`.
+- Значения, у которых `|z| > 1`, считаются **аномалиями**.
+- Аномальные точки и линии отображаются **красным цветом**.
+- Отображается сводка по количеству аномалий.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Подробнее о Z-оценке: [Wikipedia - Standard Score](https://en.wikipedia.org/wiki/Standard_score)
+
+## 📷 Превью
+
+> График содержит две линии (`pv`, `uv`). Аномальные сегменты и точки выделены красным.
+
+## ⚙️ Используемые технологии
+
+- **React**
+- **Recharts**
+- **MUI (Material UI)** — оформление
+- **JavaScript (ES6+)**
+
+## 🚀 Запуск проекта
+
+```bash
+# Установка зависимостей
+npm install
+
+# Запуск в режиме разработки
+npm run dev
+```
